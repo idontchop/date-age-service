@@ -6,6 +6,7 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Transient;
@@ -24,6 +25,7 @@ public class Age {
 	
 	public Age() {}
 	
+	@NotEmpty
 	private String name;
 	
 	@NotNull
