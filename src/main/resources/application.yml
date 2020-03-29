@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: ${SERVICE:age-service}
+    type: ${MATCH:age}
+  datasource:
+    mongo:
+      database: ${MONGODB:age}
+  data:
+    rest:
+      basePath: /data
+server:
+  port: ${PORT:8940}
+eureka:
+  instance:
+    hostname: localhost
+    metadataMap:
+      zone: zone1
+logging:
+  level:
+    org:
+      springframework: info
+    hibernate:
+      SQL: debug
+    com: debug
