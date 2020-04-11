@@ -27,6 +27,7 @@ public class AgeService {
 	public List<Age> reduceByAge (List<String> potentials, int minAge, int maxAge) {
 		
 		Criteria c = new Criteria().andOperator(
+				Criteria.where("name").in(potentials),
 				Criteria.where("birthday").lte(getMinDate(minAge)),
 				Criteria.where("birthday").gte(getMaxDate(maxAge)));
 		Query query = new Query();
