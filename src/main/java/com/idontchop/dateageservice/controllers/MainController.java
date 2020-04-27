@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.idontchop.dateageservice.dtos.ReduceRequest;
 import com.idontchop.dateageservice.dtos.RestMessage;
+import com.idontchop.dateageservice.dtos.UserProfileDto;
 import com.idontchop.dateageservice.entities.Age;
 import com.idontchop.dateageservice.service.AgeService;
 
@@ -89,6 +90,11 @@ public class MainController {
 		} catch (IllegalArgumentException e ) {
 			return ResponseEntity.notFound().build();
 		}
+	}
+	
+	@GetMapping ("/age/profile/{names}")
+	public List<UserProfileDto> getProfilesInNames ( @PathVariable List<String> names ) {
+		return ageService.getProfilesInList(names);
 	}
 	
 

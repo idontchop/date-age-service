@@ -25,6 +25,8 @@ public class Age {
 	
 	public Age() {}
 	
+	private String id;
+	
 	@NotEmpty
 	private String name;
 	
@@ -63,6 +65,14 @@ public class Age {
 				.atZone(ZoneId.systemDefault())
 				.toLocalDate();
 		return Period.between(bd8, LocalDate.now()).getYears();
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

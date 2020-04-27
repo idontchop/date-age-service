@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import com.idontchop.dateageservice.dtos.UserProfileDto;
 import com.idontchop.dateageservice.entities.Age;
 import com.idontchop.dateageservice.repositories.AgeRepository;
 
@@ -52,7 +54,8 @@ public class AgeService {
 	}
 	
 	public Age newAge (String name, Date birthday) {
-		Age newAge = new Age(name,birthday);
+		
+		Age newAge = ageRepository.findByName(name).orElse(new Age(name,birthday));
 		
 		newAge = ageRepository.save(newAge);
 		
@@ -69,6 +72,26 @@ public class AgeService {
 			throw new IllegalArgumentException();
 		}
 		
+	}
+	
+	/**
+	 * For /api/profile endpoint
+	 * 
+	 * returns list of requested users.
+	 * 
+	 * @param users
+	 * @return
+	 */
+	public List<UserProfileDto> getProfilesInList( List<String> users ) {
+		
+		return ageRepository.findAllByNameIn(users)
+			.stream().map ( age -> {
+				UserProfileDto dto = new UserProfileDto();
+				dto.setBirthday(age.getBirthday());
+				dto.setUsername(age.getName());
+				return dto;
+			})
+			.collect(Collectors.toList());
 	}
 
 }

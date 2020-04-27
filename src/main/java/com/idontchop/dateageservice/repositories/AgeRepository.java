@@ -17,5 +17,7 @@ public interface AgeRepository extends MongoRepository<Age,String> {
 			+ "    $gte: new Date(),"
 			+ "    $lte: new Date()} }")
 	public List<Age> findAllByAgeRang(List<String> potentials, int minAge, int maxAge);
+	
+	public List<Age> findAllByNameIn(List<String> names);
 
 }
